@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/inter-v18-latin-regular.woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/inter-v18-latin-700.woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-inter: 'Inter', Arial, Helvetica, sans-serif;
+
+  --color-brand-blue: #00A1FEFF;
+  --color-brand-light-blue: #F1FAFDFF;
+  --color-brand-gray: #EDEDEDFF;
+  --color-brand-white: #FFFFFF;
+  --color-brand-black: #222222FF;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  color: var(--color-brand-black);
+  background-color: var(--color-brand-white);
+}
+
+.nav-icon-btn {
+  @apply flex items-center gap-1 px-2 py-1 rounded-sm hover:bg-brand-light-blue transition-colors duration-200 ease-in-out;
+}
+
+.nav-icon-btn.router-link-active, 
+.nav-icon-btn.router-link-exact-active {
+  @apply text-brand-blue;
+}
