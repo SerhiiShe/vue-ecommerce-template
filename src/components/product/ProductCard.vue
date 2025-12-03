@@ -1,5 +1,5 @@
 <template>
-  <div>ProductCard</div>
+  <div>{{ product }}</div>
 </template>
 
 <script setup>
