@@ -1,6 +1,6 @@
 import axios from './axios'
 
-export const productsService = {
+export const productService = {
   async getProducts () {
     const { data } = await axios.get('/products')
     return data

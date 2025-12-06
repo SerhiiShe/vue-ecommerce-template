@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed inset-0 bottom-auto z-5000 border-b border-brand-gray">
+  <nav class="fixed inset-0 bottom-auto z-5000 border-b border-brand-gray bg-brand-white font-medium">
     <div class="container">
       <div class="flex justify-between py-4">
         <router-link class="flex items-center" to="/">

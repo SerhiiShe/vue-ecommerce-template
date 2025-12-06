@@ -1,10 +1,11 @@
+import { auth } from '@/services/firebase/config'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
     name: 'ProductList',
-    component: () => import('@/views/products/ProductListView.vue'),
+    component: () => import('@/views/product/ProductListView.vue'),
     meta: {
       layout: 'main',
       auth: false
@@ -16,6 +17,15 @@ const routes = [
     component: () => import('@/views/auth/LoginView.vue'),
     meta: {
       layout: 'auth',
+      auth: false
+    }
+  },
+  {
+    path: '/products/:id',
+    name: 'ProductShow',
+    component: () => import('@/views/product/ProductShowView.vue'),
+    meta: {
+      layout: 'main',
       auth: false
     }
   }

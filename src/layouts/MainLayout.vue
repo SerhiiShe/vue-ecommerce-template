@@ -7,9 +7,9 @@ defineOptions({
 </script>
 
 <template>
-  <div class="">
+  <div>
     <BaseHeader />
-    <main>
+    <main class="pt-40">
       <router-view />
     </main>
   </div>

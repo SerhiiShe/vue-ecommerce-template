@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
-import { productsService } from '@/services/fakestoreapi/products'
+import { productService } from '@/services/fakestoreapi/product'
 
-export const useProductsStore = defineStore('products', {
+export const useProductStore = defineStore('product', {
   state: () => ({
     products: []
   }),
   actions: {
     async loadProducts () {
       try {
-        const data = await productsService.getProducts()
+        const data = await productService.getProducts()
         this.products = data
       } catch (e) {
         console.error(e)
