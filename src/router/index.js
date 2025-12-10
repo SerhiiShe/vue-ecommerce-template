@@ -1,4 +1,3 @@
-import { auth } from '@/services/firebase/config'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [

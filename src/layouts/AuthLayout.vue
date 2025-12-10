@@ -1,12 +1,17 @@
 <script setup>
-  defineOptions({
-    name: 'AuthLayout'
-  })
+import BaseHeader from '@/components/header/BaseHeader.vue'
+
+defineOptions({
+  name: 'AuthLayout'
+})
 </script>
 
 <template>
-  <div class="">
-    <router-view />
+  <div>
+    <BaseHeader />
+    <main class="pt-40">
+      <router-view />
+    </main>
   </div>
 </template>
 

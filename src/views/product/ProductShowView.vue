@@ -1,28 +1,57 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { useProductStore } from '@/stores/useProductStore'
+import { useRoute } from 'vue-router'
+import { formatPrice } from '@/utils/formatPrice'
+import BaseButton from '@/components/ui/BaseButton.vue'
+
 defineOptions({
   name: 'ProductShowView'
 })
 
+const authStore = useAuthStore()
+const productStore = useProductStore()
+const route = useRoute()
+const product = ref(null)
+const price = ref(null)
 
+const isAuth = authStore.isAuth
+
+onMounted(async () => {
+  try {
+    const id = route.params.id
+    product.value = await productStore.loadProductById(id)
+    price.value = formatPrice(product.value.price)
+  } catch (e) {
+    console.error(e)
+  }
+})
+
+// const addProductToCart = async () => {
+//   await store.dispatch('cart/addItemToCart', {
+//     productId: product.value.id
+//   })
+// }
 </script>
 
 <template>
   <div>
     <div class="container">
-      <div v-if="product" class="">
-        <div class="">
-          <img class="" :src="poduct.image" :alt="product.name" />
+      <div v-if="product" class="flex">
+        <div class="w-1/3 p-8 pr-16 border-r border-brand-blue">
+          <img class="" :src="product.image" :alt="product.name" />
         </div>
-        <div class="">
-          <h1 class="">{{ product.name }}</h1>
-          <p class="">{{ product.description }}</p>
-          <p>
-            Price: <span class="">{{ price }}</span>
+        <div class="w-2/3 p-8 pl-12">
+          <h1 class="text-xl font-medium pb-4">{{ product.title }}</h1>
+          <p class="pb-6">{{ product.description }}</p>
+          <p class="pb-1">
+            Price: <span class="font-medium">{{ price }}</span>
           </p>
-          <p>
-            Rating: <span class="">{{ product.rating?.rate }} ☆</span>
+          <p class="pb-10">
+            Rating: <span class="font-medium">{{ product.rating?.rate }} ☆</span>
           </p>
-          <app-button v-if="isAuth" @action="addProductToCart">Add to Cart</app-button>
+          <BaseButton v-if="isAuth" @action="addProductToCart">Add to Cart</BaseButton>
         </div>
       </div>
     </div>
