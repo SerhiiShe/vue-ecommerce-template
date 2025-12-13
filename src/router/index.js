@@ -20,6 +20,15 @@ const routes = [
     }
   },
   {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import('@/views/auth/RegisterView.vue'),
+    meta: {
+      layout: 'auth',
+      auth: false
+    }
+  },
+  {
     path: '/products/:id',
     name: 'ProductShow',
     component: () => import('@/views/product/ProductShowView.vue'),

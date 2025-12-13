@@ -18,20 +18,20 @@ const {
 </script>
 
 <template>
-  <form class="" @submit.prevent="submitForm">
-    <h1>Login</h1>
-    <div class="">
-      <label class="" for="email">Email</label>
-      <input class="" name="email" type="email" id="email" v-model="email" @blur="emailBlur">
-      <small v-if="emailError">{{ emailError }}</small>
+  <form class="form" @submit.prevent="submitForm">
+    <h1 class="text-2xl font-medium pb-6">Login</h1>
+    <div class="form-field-wrap">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" name="email" type="email" id="email" v-model="email" @blur="emailBlur">
+      <small v-if="emailError" class="text-red-400 pt-1">{{ emailError }}</small>
     </div>
-    <div class="">
-      <label class="" for="password">Password</label>
-      <input class="" name="password" type="password" id="password" v-model="password" @blur="passwordBlur">
-      <small v-if="passwordError">{{ passwordError }}</small>
+    <div class="form-field-wrap">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-input" name="password" type="password" id="password" v-model="password" @blur="passwordBlur">
+      <small v-if="passwordError" class="text-red-400 pt-1">{{ passwordError }}</small>
     </div>
     <BaseButton type="submit">Login</BaseButton>
-    <!-- <p>Don't have an account? <router-link :to="{ name: 'Signup' }">Sign up</router-link></p> -->
+    <p class="pt-4">Don't have an account? <router-link :to="{ name: 'Signup' }" class="text-brand-blue underline">Sign up</router-link></p>
   </form>
 </template>
 

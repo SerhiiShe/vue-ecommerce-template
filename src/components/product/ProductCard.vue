@@ -1,20 +1,27 @@
 <script setup>
 import { formatPrice } from '@/utils/formatPrice'
+import { useAuthStore } from '@/stores/useAuthStore'
+import { useCartStore } from '@/stores/useCartStore'
 import BaseButton from '@/components/ui/BaseButton.vue'
 
 defineOptions({
   name: 'ProductCard'
 })
 
-defineProps({
+const props = defineProps({
   product: {
     type: Object,
     required: true
   }
 })
 
+const authStore = useAuthStore()
+const cartStore = useCartStore()
+
 const addProductToCart = async () => {
-  await console.log('addProductToCart')
+  await cartStore.addItemToCart({
+    productId: props.product.id
+  })
 }
 </script>
 
@@ -33,22 +40,9 @@ const addProductToCart = async () => {
             Rating: <span class="font-medium">{{ product.rating.rate }} ☆</span>
           </p>
         </div>
-        <!-- <div class="">
-        <router-link
-          v-slot="{ navigate }"
-          custom
-          :to="{
-            name: 'Product',
-            params: { id: product.id }
-          }"  
-        >  
-          <app-button @action="navigate">Learn more</app-button>
-        </router-link>  
-        <app-button v-if="isAuth" @action="addProductToCart">Add to Cart</app-button>
-      </div> -->
       </div>
     </router-link>
-    <BaseButton @action="addProductToCart">Add to Cart</BaseButton>
+    <BaseButton v-if="authStore.isAuth" @action="addProductToCart">Add to Cart</BaseButton>
   </div>
 </template>
 

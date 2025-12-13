@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useCartStore } from '@/stores/useCartStore'
 import { useProductStore } from '@/stores/useProductStore'
 import { useRoute } from 'vue-router'
 import { formatPrice } from '@/utils/formatPrice'
@@ -11,12 +12,11 @@ defineOptions({
 })
 
 const authStore = useAuthStore()
+const cartStore = useCartStore()
 const productStore = useProductStore()
 const route = useRoute()
 const product = ref(null)
 const price = ref(null)
-
-const isAuth = authStore.isAuth
 
 onMounted(async () => {
   try {
@@ -28,11 +28,11 @@ onMounted(async () => {
   }
 })
 
-// const addProductToCart = async () => {
-//   await store.dispatch('cart/addItemToCart', {
-//     productId: product.value.id
-//   })
-// }
+const addProductToCart = async () => {
+  await cartStore.addItemToCart({
+    productId: product.value.id
+  })
+}
 </script>
 
 <template>
@@ -51,7 +51,7 @@ onMounted(async () => {
           <p class="pb-10">
             Rating: <span class="font-medium">{{ product.rating?.rate }} ☆</span>
           </p>
-          <BaseButton v-if="isAuth" @action="addProductToCart">Add to Cart</BaseButton>
+          <BaseButton v-if="authStore.isAuth" @action="addProductToCart">Add to Cart</BaseButton>
         </div>
       </div>
     </div>
