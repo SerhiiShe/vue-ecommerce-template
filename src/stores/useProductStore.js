@@ -26,7 +26,7 @@ export const useProductStore = defineStore('product', {
     },
     async loadProductsById (idArray) {
       try {
-        const products = await productService.getProductsByIds(idArray)
+        const products = await productService.getProductsById(idArray)
         return products
       } catch (e) {
         console.error(e)

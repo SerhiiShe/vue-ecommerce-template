@@ -114,6 +114,12 @@ export const useCartStore = defineStore('cart', {
         console.error(e)
         throw e
       }
+    },
+    openCart () {
+      this.isOpen = true
+    },
+    closeCart () {
+      this.isOpen = false
     }
   }
 })

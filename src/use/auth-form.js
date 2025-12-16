@@ -75,7 +75,8 @@ export function useLoginForm () {
 
   const submitForm = handleSubmit(async values => {
     try {
-      await authStore.login(values)
+      console.log(values)
+      await authStore.login(values.email, values.password)
     } catch (e) {
       console.error(e)
     }

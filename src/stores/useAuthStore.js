@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import { authService } from '@/services/firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '@/services/firebase/config'
 import router from '@/router'
 
 export const useAuthStore = defineStore('auth', {
@@ -7,18 +9,18 @@ export const useAuthStore = defineStore('auth', {
     user: null,
   }),
   getters: {
-    uid(state) {
+    uid (state) {
       return state.user ? state.user.uid : null
     },
-    isAuth(state) {
+    isAuth (state) {
       return !!state.user
     },
-    email(state) {
+    email (state) {
       return state.user.email
     },
   },
   actions: {
-    async signUp(email, password) {
+    async signUp (email, password) {
       try {
         const user = await authService.register(email, password)
         this.user = user
@@ -28,7 +30,7 @@ export const useAuthStore = defineStore('auth', {
         throw e
       }
     },
-    async login(email, password) {
+    async login (email, password) {
       try {
         const user = await authService.signIn(email, password)
         this.user = user
@@ -38,7 +40,7 @@ export const useAuthStore = defineStore('auth', {
         throw e
       }
     },
-    async logout() {
+    async logout () {
       try {
         await authService.logout()
         this.user = null
@@ -46,6 +48,11 @@ export const useAuthStore = defineStore('auth', {
         console.error(e)
         throw e
       }
+    },
+    init () {
+      onAuthStateChanged(auth, user => {
+        this.user = user
+      })
     }
-  }
+  },
 })
