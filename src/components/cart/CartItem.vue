@@ -41,22 +41,22 @@ const removeItemFromCart = async () => {
 </script>
 
 <template>
-  <div class="flex gap-8">
-    <img :src="cartItem.product.image" :alt="cartItem.product.title" class="aspect-square object-contain w-1/3">
-    <div class="">
-      <h3 class="">
+  <div class="flex sm:flex-row flex-col gap-8 border-b border-brand-blue pb-8">
+    <img :src="cartItem.product.image" :alt="cartItem.product.title" class="aspect-square object-contain sm:w-1/3">
+    <div class="flex flex-col gap-2 grow">
+      <h3 class="text-lg font-medium">
         {{ cartItem.product.title }}
       </h3>
-      <div class="">
+      <div>
         Quantity: {{ cartItem.quantity }}
       </div>
-      <div class="">
+      <div>
         Total: {{ total }}
       </div>
-      <div class="">
+      <div class="flex gap-2 pt-4">
         <BaseButton :disabled="cartItem.quantity === 1" appearance="danger" @action="deleteItem">-</BaseButton>
         <BaseButton appearance="primary" @action="addItem">+</BaseButton>
-        <div class="">
+        <div class="ml-auto">
           <BaseButton @action="removeItemFromCart">🗑</BaseButton>
         </div>
       </div>

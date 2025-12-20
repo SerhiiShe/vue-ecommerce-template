@@ -38,11 +38,11 @@ const addProductToCart = async () => {
 <template>
   <div>
     <div class="container">
-      <div v-if="product" class="flex">
-        <div class="w-1/3 p-8 pr-16 border-r border-brand-blue">
+      <div v-if="product" class="flex md:flex-row md:gap-0 flex-col gap-8">
+        <div class="flex justify-center items-center md:w-1/3 p-8 border-b md:pr-16 md:border-r md:border-b-0 border-brand-blue">
           <img class="" :src="product.image" :alt="product.name" />
         </div>
-        <div class="w-2/3 p-8 pl-12">
+        <div class="md:w-2/3 md:p-8 md:pl-12">
           <h1 class="text-xl font-medium pb-4">{{ product.title }}</h1>
           <p class="pb-6">{{ product.description }}</p>
           <p class="pb-1">

@@ -18,8 +18,10 @@ export const useCartStore = defineStore('cart', {
 
         if (existingCartItem) {
           await this.updateCartItem({ existingCartItem, quantity })
+          console.log('1:', { existingCartItem, quantity })
         } else {
           await this.createCartItem({ productId, quantity })
+          console.log('2:', { productId, quantity })
         }
       } catch (e) {
         console.error(e)
@@ -55,7 +57,7 @@ export const useCartStore = defineStore('cart', {
 
         const docId = await firestoreService.addCollectionItem(collectionPath, newCartItem)
 
-        const product = await productStore.loadProductById()
+        const product = await productStore.loadProductById(productId)
 
         this.cart.push({
           id: docId,

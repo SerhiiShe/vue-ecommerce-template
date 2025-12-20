@@ -31,7 +31,7 @@ export function useSignupForm () {
 
   const submitForm = handleSubmit(async values => {
     try {
-      await authStore.signUp(values)      
+      await authStore.signUp(values.email, values.password)      
     } catch (e) {
       console.error(e)
     }

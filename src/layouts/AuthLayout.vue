@@ -9,7 +9,7 @@ defineOptions({
 <template>
   <div>
     <BaseHeader />
-    <main class="pt-40">
+    <main class="py-40">
       <router-view />
     </main>
   </div>
