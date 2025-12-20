@@ -12,7 +12,7 @@ export default defineConfig({
     vueDevTools(),
     tailwindcss(),
   ],
-  base: '/vue-ecommerce-template/',
+  base: 'vue-ecommerce-template',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
