@@ -1,0 +1,120 @@
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+import { authService } from '@/services/firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '@/services/firebase/config'
+import router from '@/router'
+import { AuthUser, AuthPayload } from '@/types'
+
+export const useAuthStore = defineStore('auth', () => {
+  // state
+  const user = ref<AuthUser>(null)
+
+  // getters
+  const uid = computed(() => user.value?.uid ?? null)
+  const isAuth = computed(() => !!user.value)
+  const email = computed(() => user.value?.email ?? null)
+
+  // actions
+  async function signUp(email: string, password: string) {
+    try {
+      const newUser = await authService.register(email, password)
+      user.value = newUser
+      router.push('/')
+    } catch (e: any) {
+      console.error(e.code)
+      throw e
+    }
+  }
+
+  async function login(email: string, password: string) {
+    try {
+      const newUser = await authService.signIn(email, password)
+      user.value = newUser
+      router.push('/')
+    } catch (e: any) {
+      console.error(e.code)
+      throw e
+    }
+  }
+
+  async function logout() {
+    try {
+      await authService.logout()
+      user.value = null
+    } catch (e: any) {
+      console.error(e)
+      throw e
+    }
+  }
+
+  function init() {
+    onAuthStateChanged(auth, (u) => {
+      user.value = u
+    })
+  }
+
+  return {
+    user,
+    uid,
+    isAuth,
+    email,
+    signUp,
+    login,
+    logout,
+    init,
+  }
+})
+
+// export const useAuthStore = defineStore('auth', {
+//   state: () => ({
+//     user: AuthUser null,
+//   }),
+//   getters: {
+//     uid (state) {
+//       return state.user ? state.user.uid : null
+//     },
+//     isAuth (state) {
+//       return !!state.user
+//     },
+//     email (state) {
+//       return state.user.email
+//     },
+//   },
+//   actions: {
+//     async signUp (email, password) {
+//       try {
+//         const user = await authService.register(email, password)
+//         this.user = user
+//         router.push('/')
+//       } catch (e) {
+//         console.error(e.code)
+//         throw e
+//       }
+//     },
+//     async login (email, password) {
+//       try {
+//         const user = await authService.signIn(email, password)
+//         this.user = user
+//         router.push('/')
+//       } catch (e) {
+//         console.error(e.code)
+//         throw e
+//       }
+//     },
+//     async logout () {
+//       try {
+//         await authService.logout()
+//         this.user = null
+//       } catch (e) {
+//         console.error(e)
+//         throw e
+//       }
+//     },
+//     init () {
+//       onAuthStateChanged(auth, user => {
+//         this.user = user
+//       })
+//     }
+//   },
+// })

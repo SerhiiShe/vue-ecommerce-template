@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -9,11 +9,23 @@ defineOptions({
 })
 
 const route = useRoute()
+
 const layoutMap = {
   main: MainLayout,
   auth: AuthLayout
-}
-const viewLayout = computed(() => layoutMap[route.meta.layout] || MainLayout)
+} as const
+
+type LayoutKey = keyof typeof layoutMap
+
+const viewLayout = computed(() => {
+  const layout = route.meta.layout
+
+  if (typeof layout === 'string' && layout in layoutMap) {
+    return layoutMap[layout as LayoutKey]
+  }
+
+  return MainLayout
+})
 </script>
 
 <template>

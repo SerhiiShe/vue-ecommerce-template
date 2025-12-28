@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from '@/stores/useAuthStore'
 import BaseHeader from '@/components/header/BaseHeader.vue'
 import CartModal from '@/components/cart/CartModal.vue'
