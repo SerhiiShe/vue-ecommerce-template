@@ -4,7 +4,7 @@ import { authService } from '@/services/firebase/auth'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/services/firebase/config'
 import router from '@/router'
-import { AuthUser, AuthPayload } from '@/types'
+import { AuthUser } from '@/types'
 
 export const useAuthStore = defineStore('auth', () => {
   // state
@@ -16,39 +16,39 @@ export const useAuthStore = defineStore('auth', () => {
   const email = computed(() => user.value?.email ?? null)
 
   // actions
-  async function signUp(email: string, password: string) {
+  async function signUp(email: string, password: string): Promise<void> {
     try {
       const newUser = await authService.register(email, password)
       user.value = newUser
       router.push('/')
-    } catch (e: any) {
-      console.error(e.code)
+    } catch (e: unknown) {
+      console.error('signUp failed', e)
       throw e
     }
   }
 
-  async function login(email: string, password: string) {
+  async function login(email: string, password: string): Promise<void> {
     try {
       const newUser = await authService.signIn(email, password)
       user.value = newUser
       router.push('/')
-    } catch (e: any) {
-      console.error(e.code)
+    } catch (e: unknown) {
+      console.error('login failed', e)
       throw e
     }
   }
 
-  async function logout() {
+  async function logout(): Promise<void> {
     try {
       await authService.logout()
       user.value = null
-    } catch (e: any) {
-      console.error(e)
+    } catch (e: unknown) {
+      console.error('logout failed', e)
       throw e
     }
   }
 
-  function init() {
+  function init(): void {
     onAuthStateChanged(auth, (u) => {
       user.value = u
     })

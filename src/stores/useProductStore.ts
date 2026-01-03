@@ -8,32 +8,37 @@ export const useProductStore = defineStore('product', () => {
   const products = ref<Product[]>([])
 
   // actions
-  async function loadProducts() {
+  async function loadProducts(): Promise<void> {
     try {
       const data = await productService.getProducts()
       products.value = data
-    } catch (e: any) {
-      console.error(e)
+    } catch (e: unknown) {
+      console.error('loadProducts failed:', e)
       throw e
     }
   }
 
-  async function loadProductById(id: number) {
+  async function loadProductById(id: number): Promise<Product> {
     try {
       const data = await productService.getProductById(id)
+
+      if (!data) {
+        throw new Error('Product not found')
+      }
+
       return data
-    } catch (e: any) {
-      console.error(e)
+    } catch (e: unknown) {
+      console.error('loadProductById failed:', e)
       throw e
     }
   }
 
-  async function loadProductsById(idArray: number[]) {
+  async function loadProductsById(idArray: number[]): Promise<Product[]> {
     try {
       const products = await productService.getProductsById(idArray)
       return products
-    } catch (e: any) {
-      console.error(e)
+    } catch (e: unknown) {
+      console.error('loadProductsById failed:', e)
       throw e
     }
   }
