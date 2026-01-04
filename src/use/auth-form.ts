@@ -1,18 +1,19 @@
 import { useForm, useField } from 'vee-validate'
 import { useAuthStore } from '@/stores/useAuthStore'
 import * as yup from 'yup'
+import { SignupFormValues, LoginFormValues } from '@/types'
 
 const PASSWORD_MIN_LENGTH = 6
 
-export function useSignupForm () {
+export function useSignupForm() {
   const authStore = useAuthStore()
-  const { handleSubmit } = useForm()
+  const { handleSubmit } = useForm<SignupFormValues>()
 
   const {
     value: email,
     errorMessage: emailError,
     handleBlur: emailBlur
-  } = useField('email', yup
+  } = useField<string>('email', yup
     .string()
     .trim()
     .email('Enter email')
@@ -23,7 +24,7 @@ export function useSignupForm () {
     value: password,
     errorMessage: passwordError,
     handleBlur: passwordBlur
-  } = useField('password', yup
+  } = useField<string>('password', yup
     .string()
     .required('Enter password')
     .min(PASSWORD_MIN_LENGTH, 'Password must be at least 6 characters')
@@ -48,15 +49,15 @@ export function useSignupForm () {
   }
 }
 
-export function useLoginForm () {
+export function useLoginForm() {
   const authStore = useAuthStore()
-  const { handleSubmit } = useForm()
+  const { handleSubmit } = useForm<LoginFormValues>()
 
   const {
     value: email,
     errorMessage: emailError,
     handleBlur: emailBlur
-  } = useField('email', yup
+  } = useField<string>('email', yup
     .string()
     .trim()
     .email('Enter email')
@@ -67,7 +68,7 @@ export function useLoginForm () {
     value: password,
     errorMessage: passwordError,
     handleBlur: passwordBlur
-  } = useField('password', yup
+  } = useField<string>('password', yup
     .string()
     .required('Enter password')
     .min(PASSWORD_MIN_LENGTH, 'Password must be at least 6 characters')

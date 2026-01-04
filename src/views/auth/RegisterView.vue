@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { useSignupForm } from '@/use/auth-form'
 

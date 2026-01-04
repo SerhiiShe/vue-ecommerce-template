@@ -1,19 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { formatPrice } from '@/utils/formatPrice'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useCartStore } from '@/stores/useCartStore'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { Product } from '@/types'
+
+interface Props {
+  product: Product
+}
 
 defineOptions({
   name: 'ProductCard'
 })
 
-const props = defineProps({
-  product: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<Props>()
 
 const authStore = useAuthStore()
 const cartStore = useCartStore()

@@ -3,7 +3,7 @@ import type { User as FirebaseUser } from 'firebase/auth'
 export type AuthUser = FirebaseUser | null
 
 export interface Product {
-  id: number
+  id: string
   title: string
   image: string
   price: number
@@ -14,7 +14,7 @@ export interface Product {
 }
 
 export interface CartItemPayload {
-  productId: number
+  productId: string
   quantity: number
 }
 
@@ -27,11 +27,21 @@ export interface CartItem extends CartItemDoc {
 }
 
 export interface AddToCartPayload {
-  productId: number
+  productId: string
   quantity?: number
 }
 
 export interface UpdateCartItemPayload {
   existingCartItem: CartItem
   quantity: number
+}
+
+export interface SignupFormValues {
+  email: string
+  password: string
+}
+
+export interface LoginFormValues {
+  email: string
+  password: string
 }

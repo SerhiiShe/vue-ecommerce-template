@@ -1,19 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { useCartStore } from '@/stores/useCartStore'
 import { formatPrice } from '@/utils/formatPrice'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { CartItem } from '@/types'
+
+interface Props {
+  cartItem: CartItem
+}
 
 defineOptions({
   name: 'CartItem'
 })
 
-const props = defineProps({
-  cartItem: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<Props>()
 
 const cartStore = useCartStore()
 

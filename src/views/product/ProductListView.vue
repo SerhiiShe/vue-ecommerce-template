@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 import { useProductStore } from '@/stores/useProductStore'
 import ProductCard from '@/components/product/ProductCard.vue'
@@ -12,7 +12,7 @@ const productStore = useProductStore()
 onMounted(async () => {
   try {
     await productStore.loadProducts()
-  } catch (e) {
+  } catch (e: unknown) {
     console.error(e)
   }
 })

@@ -18,7 +18,7 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  async function loadProductById(id: number): Promise<Product> {
+  async function loadProductById(id: string): Promise<Product> {
     try {
       const data = await productService.getProductById(id)
 
@@ -33,7 +33,7 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  async function loadProductsById(idArray: number[]): Promise<Product[]> {
+  async function loadProductsById(idArray: string[]): Promise<Product[]> {
     try {
       const products = await productService.getProductsById(idArray)
       return products

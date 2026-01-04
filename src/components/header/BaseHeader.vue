@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useCartStore } from '@/stores/useCartStore'
 
-defineProps({
+defineOptions({
   name: 'BaseHeader'
 })
 

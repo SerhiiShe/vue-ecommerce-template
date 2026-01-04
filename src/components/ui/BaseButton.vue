@@ -1,23 +1,25 @@
-<script setup>
+<script setup lang="ts">
+type ButtonType = 'button' | 'submit'
+
+interface Props {
+  type?: ButtonType
+  disabled?: boolean
+}
+
 defineOptions({
   name: 'BaseButton'
 })
- 
-defineProps({
-  type: {
-    type: String,
-    required: false,
-    default: 'button',
-    validator: (value) => ['submit', 'button'].includes(value)
-  },
-  disabled: {
-    type: Boolean,
-    required: false,
-    default: false
-  }
-})
 
-const emit = defineEmits(['action'])
+const props = withDefaults(
+  defineProps<Props>(),
+  {
+    type: 'button',
+    disabled: false
+  })
+
+const emit = defineEmits<{
+  (e: 'action'): void
+}>()
 </script>
 
 <template>

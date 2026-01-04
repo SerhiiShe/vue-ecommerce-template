@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/useAuthStore'
 import { useCartStore } from '@/stores/useCartStore'
@@ -6,6 +6,7 @@ import { useProductStore } from '@/stores/useProductStore'
 import { useRoute } from 'vue-router'
 import { formatPrice } from '@/utils/formatPrice'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import { Product } from '@/types'
 
 defineOptions({
   name: 'ProductShowView'
@@ -15,20 +16,30 @@ const authStore = useAuthStore()
 const cartStore = useCartStore()
 const productStore = useProductStore()
 const route = useRoute()
-const product = ref(null)
-const price = ref(null)
+const product = ref<Product | null>(null)
+const formattedPrice = ref<string | null>(null)
 
 onMounted(async () => {
   try {
-    const id = route.params.id
+    const idParam = route.params['id']
+
+    if (typeof idParam !== 'string') {
+      throw new Error('Invalid route param id')
+    }
+
+    const id = idParam
     product.value = await productStore.loadProductById(id)
-    price.value = formatPrice(product.value.price)
-  } catch (e) {
+    formattedPrice.value = formatPrice(product.value.price)
+  } catch (e: unknown) {
     console.error(e)
   }
 })
 
 const addProductToCart = async () => {
+  if (!product.value) {
+    throw new Error('Product is not loaded yet')
+  }
+
   await cartStore.addItemToCart({
     productId: product.value.id
   })
@@ -46,7 +57,7 @@ const addProductToCart = async () => {
           <h1 class="text-xl font-medium pb-4">{{ product.title }}</h1>
           <p class="pb-6">{{ product.description }}</p>
           <p class="pb-1">
-            Price: <span class="font-medium">{{ price }}</span>
+            Price: <span class="font-medium">{{ formattedPrice }}</span>
           </p>
           <p class="pb-10">
             Rating: <span class="font-medium">{{ product.rating?.rate }} ☆</span>
