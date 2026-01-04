@@ -8,7 +8,7 @@ defineOptions({
 </script>
 
 <template>
-  <div>
+  <div class="h-screen flex flex-col">
     <BaseHeader />
     <main class="py-40">
       <router-view />

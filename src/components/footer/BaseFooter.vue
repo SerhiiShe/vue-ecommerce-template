@@ -5,7 +5,7 @@ defineOptions({
 </script>
 
 <template>
-  <footer class="border-t border-brand-gray">
+  <footer class="border-t border-brand-gray mt-auto">
     <div class="container">
       <div class="flex justify-between items-center py-4">
         <span>

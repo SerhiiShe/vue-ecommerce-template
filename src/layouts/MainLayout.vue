@@ -12,7 +12,7 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <div>
+  <div class="h-screen flex flex-col">
     <BaseHeader />
     <CartModal v-if="authStore.isAuth" />
     <main class="py-40">
