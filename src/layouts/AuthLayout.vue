@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BaseFooter from '@/components/footer/BaseFooter.vue'
 import BaseHeader from '@/components/header/BaseHeader.vue'
 
 defineOptions({
@@ -12,6 +13,7 @@ defineOptions({
     <main class="py-40">
       <router-view />
     </main>
+    <BaseFooter />
   </div>
 </template>
 

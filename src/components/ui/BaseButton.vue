@@ -24,7 +24,7 @@ const emit = defineEmits<{
 
 <template>
   <button
-    class="px-2 py-1 border border-brand-blue rounded-lg hover:bg-brand-light-blue transition-all duration-300 ease-in-out cursor-pointer"
+    class="px-2 py-1 border border-brand-blue rounded-lg hover:bg-brand-light-blue transition-all duration-300 ease-in-out cursor-pointer disabled:pointer-events-none disabled:grayscale-100 disabled:opacity-50"
     :type="type"
     :disabled="disabled"
     @click="emit('action')"

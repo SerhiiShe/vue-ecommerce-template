@@ -160,6 +160,11 @@ export const useCartStore = defineStore('cart', () => {
     isOpen.value = false
   }
 
+  function clearCart(): void {
+    cart.value = []
+    isLoaded.value = false
+  }
+
   return {
     cart,
     isLoaded,
@@ -172,6 +177,7 @@ export const useCartStore = defineStore('cart', () => {
     loadCartProducts,
     openCart,
     closeCart,
+    clearCart
   }
 })
 

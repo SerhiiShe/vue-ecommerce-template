@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/useAuthStore'
+import BaseFooter from '@/components/footer/BaseFooter.vue'
 import BaseHeader from '@/components/header/BaseHeader.vue'
 import CartModal from '@/components/cart/CartModal.vue'
 
@@ -17,6 +18,7 @@ const authStore = useAuthStore()
     <main class="py-40">
       <router-view />
     </main>
+    <BaseFooter />
   </div>
 </template>
 

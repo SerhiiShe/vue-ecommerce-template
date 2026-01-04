@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/services/firebase/config'
 import router from '@/router'
 import { AuthUser } from '@/types'
+import { useCartStore } from './useCartStore'
 
 export const useAuthStore = defineStore('auth', () => {
   // state
@@ -40,8 +41,11 @@ export const useAuthStore = defineStore('auth', () => {
 
   async function logout(): Promise<void> {
     try {
+      const cartStore = useCartStore()
+
       await authService.logout()
       user.value = null
+      cartStore.clearCart()
     } catch (e: unknown) {
       console.error('logout failed', e)
       throw e
