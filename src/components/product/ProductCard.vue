@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { formatPrice } from '@/utils/formatPrice'
 import { useAuthStore } from '@/stores/useAuthStore'
-import { useCartStore } from '@/stores/useCartStore'
-import BaseButton from '@/components/ui/BaseButton.vue'
 import { Product } from '@/types'
+import ProductOrderButtons from './ProductOrderButtons.vue'
 
 interface Props {
   product: Product
@@ -16,13 +15,6 @@ defineOptions({
 const props = defineProps<Props>()
 
 const authStore = useAuthStore()
-const cartStore = useCartStore()
-
-const addProductToCart = async () => {
-  await cartStore.addItemToCart({
-    productId: props.product.id
-  })
-}
 </script>
 
 <template>
@@ -42,7 +34,7 @@ const addProductToCart = async () => {
         </div>
       </div>
     </router-link>
-    <BaseButton v-if="authStore.isAuth" @action="addProductToCart">Add to Cart</BaseButton>
+    <ProductOrderButtons v-if="authStore.isAuth" :product-id="product.id" />
   </div>
 </template>
 
